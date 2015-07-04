@@ -1,0 +1,14 @@
+start on starting <%= app %>-<%= name %>
+stop on stopping <%= app %>-<%= name %>
+respawn
+
+<% engine.env.each do |name,value| -%>
+env <%= name.upcase %>='<%= value.gsub(/'/, "'\"'\"'") %>'
+<% end -%>
+env PORT=<%= port %>
+
+setuid <%= user %>
+
+chdir <%= engine.root %>
+
+exec <%= process.command %>
